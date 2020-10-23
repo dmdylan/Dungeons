@@ -3915,6 +3915,7 @@ GameObject:
   - component: {fileID: 1130533410}
   - component: {fileID: 1130533413}
   - component: {fileID: 1130533412}
+  - component: {fileID: 1130533414}
   m_Layer: 0
   m_Name: PlayerMainCamera
   m_TagString: Untagged
@@ -3964,9 +3965,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1130533409}
-  m_LocalRotation: {x: 0.24878111, y: 0, z: 0, w: 0.96855974}
-  m_LocalPosition: {x: 0, y: 7, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.28978416, y: 0, z: 0, w: 0.95709205}
+  m_LocalPosition: {x: 0, y: 5.5, z: -6}
+  m_LocalScale: {x: 0.57197, y: 0.57197, z: 0.57197}
   m_Children:
   - {fileID: 1328271523}
   m_Father: {fileID: 0}
@@ -3985,8 +3986,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerIndex: -1
-  XYAxis: {fileID: 0}
-  ZAxis: {fileID: 0}
+  XYAxis: {fileID: 948386238759566205, guid: 4f27a0bff404eaa45860b2ff21089b9d, type: 3}
+  ZAxis: {fileID: -7600175453883493150, guid: 4f27a0bff404eaa45860b2ff21089b9d, type: 3}
 --- !u!114 &1130533413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4017,6 +4018,18 @@ MonoBehaviour:
   m_Damping: 0
   m_DampingWhenOccluded: 0
   m_OptimalTargetDistance: 0
+--- !u!114 &1130533414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130533409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6d73772df35e4941860114043d36aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1328271522
 GameObject:
   m_ObjectHideFlags: 3
@@ -4027,8 +4040,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1328271523}
   - component: {fileID: 1328271526}
-  - component: {fileID: 1328271525}
   - component: {fileID: 1328271524}
+  - component: {fileID: 1328271525}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -4059,11 +4072,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1328271522}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 9384ab8608cdc3d479fe89cd51eed48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 6, z: -10}
+  m_FollowOffset: {x: 0, y: 4.5, z: -6}
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 0
@@ -4072,6 +4085,38 @@ MonoBehaviour:
   m_YawDamping: 0
   m_RollDamping: 0
   m_AngularDamping: 0
+  m_Heading:
+    m_Definition: 2
+    m_VelocityFilterStrength: 4
+    m_Bias: 0
+  m_RecenterToTargetHeading:
+    m_enabled: 0
+    m_WaitTime: 1
+    m_RecenteringTime: 2
+    m_LegacyHeadingDefinition: -1
+    m_LegacyVelocityFilterStrength: -1
+  m_XAxis:
+    Value: 0
+    m_SpeedMode: 0
+    m_MaxSpeed: 300
+    m_AccelTime: 0.1
+    m_DecelTime: 0.1
+    m_InputAxisName: Mouse X
+    m_InputAxisValue: 0
+    m_InvertInput: 1
+    m_MinValue: -180
+    m_MaxValue: 180
+    m_Wrap: 1
+    m_Recentering:
+      m_enabled: 0
+      m_WaitTime: 1
+      m_RecenteringTime: 2
+      m_LegacyHeadingDefinition: -1
+      m_LegacyVelocityFilterStrength: -1
+  m_LegacyRadius: 3.4028235e+38
+  m_LegacyHeightOffset: 3.4028235e+38
+  m_LegacyHeadingBias: 3.4028235e+38
+  m_HeadingIsSlave: 0
 --- !u!114 &1328271525
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -4465,8 +4510,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000692817}
-  m_LocalRotation: {x: 0.24878111, y: 0, z: 0, w: 0.96855974}
-  m_LocalPosition: {x: 0, y: 7, z: -10}
+  m_LocalRotation: {x: 0.28978416, y: 0, z: 0, w: 0.95709205}
+  m_LocalPosition: {x: 0, y: 5.5, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4604,7 +4649,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1827860195, guid: 63d7aaee2632518469682e6b47521f1e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 63d7aaee2632518469682e6b47521f1e, type: 3}
 --- !u!4 &6513304668758513839 stripped
 Transform:
