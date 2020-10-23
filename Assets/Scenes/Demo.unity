@@ -3965,8 +3965,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1130533409}
-  m_LocalRotation: {x: 0.28978416, y: 0, z: 0, w: 0.95709205}
-  m_LocalPosition: {x: 0, y: 5.5, z: -6}
+  m_LocalRotation: {x: 0.21390365, y: 0, z: 0, w: 0.97685474}
+  m_LocalPosition: {x: 0, y: 6.1, z: -10}
   m_LocalScale: {x: 0.57197, y: 0.57197, z: 0.57197}
   m_Children:
   - {fileID: 1328271523}
@@ -3986,8 +3986,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerIndex: -1
-  XYAxis: {fileID: 948386238759566205, guid: 4f27a0bff404eaa45860b2ff21089b9d, type: 3}
-  ZAxis: {fileID: -7600175453883493150, guid: 4f27a0bff404eaa45860b2ff21089b9d, type: 3}
+  XYAxis: {fileID: 0}
+  ZAxis: {fileID: 0}
 --- !u!114 &1130533413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4025,11 +4025,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1130533409}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6d73772df35e4941860114043d36aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minimumCameraDistance: 0
+  maximumCameraDistance: 10
 --- !u!1 &1328271522
 GameObject:
   m_ObjectHideFlags: 3
@@ -4076,7 +4078,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 4.5, z: -6}
+  m_FollowOffset: {x: 0, y: 5.1, z: -10}
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 0
@@ -4510,8 +4512,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000692817}
-  m_LocalRotation: {x: 0.28978416, y: 0, z: 0, w: 0.95709205}
-  m_LocalPosition: {x: 0, y: 5.5, z: -6}
+  m_LocalRotation: {x: 0.21390365, y: 0, z: 0, w: 0.97685474}
+  m_LocalPosition: {x: 0, y: 6.1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4649,8 +4651,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1827860195, guid: 63d7aaee2632518469682e6b47521f1e, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63d7aaee2632518469682e6b47521f1e, type: 3}
 --- !u!4 &6513304668758513839 stripped
 Transform:
