@@ -28,14 +28,6 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
-                },
-                {
-                    "name": "MouseScroll",
-                    "type": "Value",
-                    "id": "e35a8afd-72c9-4e03-9734-190930740932",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -97,7 +89,7 @@
                 {
                     "name": "",
                     "id": "eae2adea-b3de-44de-ab3d-ab674cd5cfe1",
-                    "path": "<Mouse>/position",
+                    "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -124,17 +116,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "MainMouseButtons",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2316b468-20ed-4848-812c-9fafa944d6ed",
-                    "path": "<Mouse>/scroll",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseScroll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
