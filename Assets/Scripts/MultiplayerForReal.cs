@@ -41,6 +41,14 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""f4f33678-4e5d-4c0d-8b53-2fe1dd18c3ea"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -131,6 +139,17 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
                     ""action"": ""MainMouseButtons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""76673cc6-c27c-4ca5-811f-b4555344ba49"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -203,6 +222,7 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_MousePosition = m_Player.FindAction("MousePosition", throwIfNotFound: true);
         m_Player_MainMouseButtons = m_Player.FindAction("MainMouseButtons", throwIfNotFound: true);
+        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -255,6 +275,7 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_MousePosition;
     private readonly InputAction m_Player_MainMouseButtons;
+    private readonly InputAction m_Player_Jump;
     public struct PlayerActions
     {
         private @MultiplayerForReal m_Wrapper;
@@ -262,6 +283,7 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @MousePosition => m_Wrapper.m_Player_MousePosition;
         public InputAction @MainMouseButtons => m_Wrapper.m_Player_MainMouseButtons;
+        public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -280,6 +302,9 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
                 @MainMouseButtons.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMainMouseButtons;
                 @MainMouseButtons.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMainMouseButtons;
                 @MainMouseButtons.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMainMouseButtons;
+                @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -293,6 +318,9 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
                 @MainMouseButtons.started += instance.OnMainMouseButtons;
                 @MainMouseButtons.performed += instance.OnMainMouseButtons;
                 @MainMouseButtons.canceled += instance.OnMainMouseButtons;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
             }
         }
     }
@@ -347,5 +375,6 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
         void OnMainMouseButtons(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
 }
