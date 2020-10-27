@@ -11,12 +11,16 @@ public class CharacterLocomotion : NetworkBehaviour
     private Vector2 movement;
     private float velocityY;
     private float turnSmoothVelocity;
+    private float currentSpeed;
+    private float speedSmoothVelocity;
     Transform cameraT;
 
     [SerializeField] private bool debug = false;
     [SerializeField] private float moveSpeed = 0f;
     [SerializeField] private float jumpHeight = 1f;
+    [SerializeField] private float gravity = -12f;
     [SerializeField] private float gravityMultiplier = 1f;
+    [SerializeField] private float speedSmoothTime = .1f;
     [SerializeField] private float turnSmoothTime = .1f;
 
     [Range(0, 1)]
@@ -36,12 +40,15 @@ public class CharacterLocomotion : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
 
-        MoveCharacter();
+        if (debug.Equals(false))
+            CombatMovement();
+        else
+            OutOfCombatMove();
     }
 
     //Move speed is the same regardles of the characters move direction
     //Might make it slower if they are moving backwards as opposed to forwards
-    private void MoveCharacter()
+    private void CombatMovement()
     {
         if (!isLocalPlayer) return;
 
@@ -51,14 +58,8 @@ public class CharacterLocomotion : NetworkBehaviour
             velocityY = 0;
         }
 
-        if (movement != Vector2.zero && debug == false)
-        {
-            float targetRotation = Mathf.Atan2(movement.x, movement.y) * Mathf.Rad2Deg + cameraT.eulerAngles.y;
-            transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, GetModifiedSmoothTime(turnSmoothTime));
-        }
-
         //Makes sure the character is brought back to the ground and character controller is grounded
-        velocityY += Time.fixedDeltaTime * Physics.gravity.y;
+        velocityY += Time.fixedDeltaTime * gravity;
 
         //use input from new input system
         var movementDirection = new Vector3(movement.x, velocityY, movement.y);
@@ -74,6 +75,32 @@ public class CharacterLocomotion : NetworkBehaviour
         animator.SetFloat("InputY", Mathf.Round(movement.y));
         
         characterController.Move(movementDirection);
+    }
+
+    void OutOfCombatMove()//, bool running)
+    {
+        if (movement != Vector2.zero)
+        {
+            float targetRotation = Mathf.Atan2(movement.x, movement.y) * Mathf.Rad2Deg + cameraT.eulerAngles.y;
+            transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, GetModifiedSmoothTime(turnSmoothTime));
+        }
+
+        float targetSpeed = moveSpeed * movement.magnitude; //((running) ? runSpeed : walkSpeed) * inputDir.magnitude;
+        currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, GetModifiedSmoothTime(speedSmoothTime));
+
+        velocityY += Time.fixedDeltaTime * gravity;
+        Vector3 velocity = transform.forward * currentSpeed + Vector3.up * velocityY;
+
+        animator.SetFloat("InputX", Mathf.Round(movement.x));
+        animator.SetFloat("InputY", Mathf.Round(movement.y));
+
+        characterController.Move(velocity * Time.fixedDeltaTime);
+        currentSpeed = new Vector2(characterController.velocity.x, characterController.velocity.z).magnitude;
+
+        if (characterController.isGrounded)
+        {
+            velocityY = 0;
+        }
     }
 
     float GetModifiedSmoothTime(float smoothTime)
