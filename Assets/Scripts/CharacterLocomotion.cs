@@ -9,17 +9,25 @@ public class CharacterLocomotion : NetworkBehaviour
     private Animator animator;
     private CharacterController characterController;
     private Vector2 movement;
-    private float velocityY; 
+    private float velocityY;
+    private float turnSmoothVelocity;
+    Transform cameraT;
+
+    [SerializeField] private bool debug = false;
     [SerializeField] private float moveSpeed = 0f;
     [SerializeField] private float jumpHeight = 1f;
     [SerializeField] private float gravityMultiplier = 1f;
+    [SerializeField] private float turnSmoothTime = .1f;
 
+    [Range(0, 1)]
+    [SerializeField] private float airControlPercent = 0f;
 
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        cameraT = Camera.main.transform;
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
     }
@@ -43,6 +51,12 @@ public class CharacterLocomotion : NetworkBehaviour
             velocityY = 0;
         }
 
+        if (movement != Vector2.zero && debug == false)
+        {
+            float targetRotation = Mathf.Atan2(movement.x, movement.y) * Mathf.Rad2Deg + cameraT.eulerAngles.y;
+            transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, GetModifiedSmoothTime(turnSmoothTime));
+        }
+
         //Makes sure the character is brought back to the ground and character controller is grounded
         velocityY += Time.fixedDeltaTime * Physics.gravity.y;
 
@@ -60,6 +74,21 @@ public class CharacterLocomotion : NetworkBehaviour
         animator.SetFloat("InputY", Mathf.Round(movement.y));
         
         characterController.Move(movementDirection);
+    }
+
+    float GetModifiedSmoothTime(float smoothTime)
+    {
+        if (characterController.isGrounded)
+        {
+            return smoothTime;
+        }
+
+        if (airControlPercent == 0)
+        {
+            return float.MaxValue;
+        }
+
+        return smoothTime / airControlPercent;
     }
 
     #region InputCommands
