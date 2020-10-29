@@ -31,9 +31,9 @@ public class CharacterLocomotion : NetworkBehaviour
         base.OnStartLocalPlayer();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        cameraT = Camera.main.transform;
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+        cameraT = Camera.main.transform;
     }
 
     private void FixedUpdate()
