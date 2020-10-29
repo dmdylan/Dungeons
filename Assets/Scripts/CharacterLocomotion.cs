@@ -1,4 +1,5 @@
 ﻿using Mirror;
+using StateStuff;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class CharacterLocomotion : NetworkBehaviour
 {
     private Animator animator;
     private CharacterController characterController;
+    private PlayerController playerController;
     private Vector2 movement;
     private float velocityY;
     private float turnSmoothVelocity;
@@ -15,7 +17,7 @@ public class CharacterLocomotion : NetworkBehaviour
     private float speedSmoothVelocity;
     Transform cameraT;
 
-    [SerializeField] private bool debug = false;
+    [SerializeField] private bool inCombat = false;
     [SerializeField] private float moveSpeed = 0f;
     [SerializeField] private float jumpHeight = 1f;
     [SerializeField] private float gravity = -12f;
@@ -33,6 +35,7 @@ public class CharacterLocomotion : NetworkBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+        playerController = GetComponent<PlayerController>();
         cameraT = Camera.main.transform;
     }
 
@@ -40,7 +43,7 @@ public class CharacterLocomotion : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
 
-        if (debug.Equals(false))
+        if (inCombat.Equals(true))
             CombatMovement();
         else
             OutOfCombatMove();
@@ -70,7 +73,7 @@ public class CharacterLocomotion : NetworkBehaviour
         //multiply it by move speed and deltatime
         movementDirection = movementDirection * moveSpeed * Time.fixedDeltaTime;
 
-        //TODO: Take animation out of movement script?
+        //TODO: Take animation out of movement script
         animator.SetFloat("InputX", Mathf.Round(movement.x));
         animator.SetFloat("InputY", Mathf.Round(movement.y));
         

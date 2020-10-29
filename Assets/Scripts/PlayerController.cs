@@ -1,20 +1,23 @@
 ﻿using Cinemachine;
 using Mirror;
 using StateStuff;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking.Types;
+using UnityEngine.InputSystem;
 
 public class PlayerController : PlayerStateMachine
 {
-    [SerializeField] private List<GameObject> playerCinemachineCameraObjects = null;
+    [SerializeField] private GameObject[] playerCinemachineCameraObjects = null;
     [SerializeField] private Transform playerFollow = null;
     [SerializeField] private Transform playerLookAt = null;
 
     public CharacterController PlayerCharacterController { get; private set; } = null;
     public Camera PlayerCamera { get; private set; } = null;
-    public List<GameObject> PlayerCinemachineCameraObjects => playerCinemachineCameraObjects;
+    public GameObject[] PlayerCinemachineCameraObjects => playerCinemachineCameraObjects;
+    public PlayerInput PlayerInput { get; private set; } = null;
+
+    public event Action OnEnterCombat;
 
     public override void OnStartLocalPlayer()
     {
@@ -24,16 +27,31 @@ public class PlayerController : PlayerStateMachine
 
         PlayerCharacterController = GetComponent<CharacterController>();
         PlayerCamera = Camera.main;
+        PlayerInput = GetComponent<PlayerInput>();
 
         //TODO: Assigns the targets to disabled gameobjects. Need to enable the gameobjects otherwise
         //unity/cinemachine decides to swap camera to other play when someone connects.
         foreach (GameObject playerCameraObject in playerCinemachineCameraObjects)
         {
-            if(playerCameraObject.TryGetComponent(out CinemachineFreeLook cinemachineFreeLook))
+            if (playerCameraObject.TryGetComponent(out CinemachineFreeLook cinemachineFreeLook))
             {
                 cinemachineFreeLook.m_Follow = playerFollow;
                 cinemachineFreeLook.m_LookAt = playerLookAt;
             }
         }
+
+        SetState(new OutOfCombat(this));
+    }
+
+    private void Update()
+    {
+        Debug.Log(state);
+    }
+
+    private void OnMainMouseButtons()
+    {
+        if(!isLocalPlayer) return;
+
+        SetState(new InCombat(this));
     }
 }

@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using Mirror;
 
-
-
 //TODO: Move all this shit to own combat state. Idk about the variables.
 public class CombatAiming : NetworkBehaviour
 {
