@@ -2,7 +2,7 @@
     "name": "MultiplayerForReal",
     "maps": [
         {
-            "name": "Player",
+            "name": "InCombat",
             "id": "e9bcb277-6255-4fcd-b974-28e48ab19e2c",
             "actions": [
                 {
@@ -139,6 +139,18 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "OutOfCombat",
+            "id": "56c46d6a-8e58-4947-87a8-2ddd38a8be7f",
+            "actions": [],
+            "bindings": []
+        },
+        {
+            "name": "InMenu",
+            "id": "dd141c9b-2a4a-4074-b548-4eff6ff3dc4d",
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": [

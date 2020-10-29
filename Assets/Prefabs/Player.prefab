@@ -797,7 +797,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: InCombat
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &2041419359292382750
@@ -2627,6 +2627,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3963519512554293130}
     m_Modifications:
+    - target: {fileID: 5675559702279002040, guid: 778955dd85d9e2948b86020ed9f1bd6f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.000000017666919
+      objectReference: {fileID: 0}
+    - target: {fileID: 5675559702279002040, guid: 778955dd85d9e2948b86020ed9f1bd6f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.0000000015631291
+      objectReference: {fileID: 0}
     - target: {fileID: 5675559703219938644, guid: 778955dd85d9e2948b86020ed9f1bd6f,
         type: 3}
       propertyPath: m_Name
@@ -2697,6 +2707,16 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 4650556225758008216}
+    - target: {fileID: 5675559703336810761, guid: 778955dd85d9e2948b86020ed9f1bd6f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.0000000176149
+      objectReference: {fileID: 0}
+    - target: {fileID: 5675559703336810761, guid: 778955dd85d9e2948b86020ed9f1bd6f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.0000000020684863
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 778955dd85d9e2948b86020ed9f1bd6f, type: 3}
 --- !u!4 &4485824660243915273 stripped

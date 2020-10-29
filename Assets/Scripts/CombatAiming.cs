@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Cinemachine;
 using Mirror;
 
 public class CombatAiming : NetworkBehaviour

@@ -15,7 +15,7 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
     ""name"": ""MultiplayerForReal"",
     ""maps"": [
         {
-            ""name"": ""Player"",
+            ""name"": ""InCombat"",
             ""id"": ""e9bcb277-6255-4fcd-b974-28e48ab19e2c"",
             ""actions"": [
                 {
@@ -152,6 +152,18 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""OutOfCombat"",
+            ""id"": ""56c46d6a-8e58-4947-87a8-2ddd38a8be7f"",
+            ""actions"": [],
+            ""bindings"": []
+        },
+        {
+            ""name"": ""InMenu"",
+            ""id"": ""dd141c9b-2a4a-4074-b548-4eff6ff3dc4d"",
+            ""actions"": [],
+            ""bindings"": []
         }
     ],
     ""controlSchemes"": [
@@ -217,12 +229,16 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
         }
     ]
 }");
-        // Player
-        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-        m_Player_MousePosition = m_Player.FindAction("MousePosition", throwIfNotFound: true);
-        m_Player_MainMouseButtons = m_Player.FindAction("MainMouseButtons", throwIfNotFound: true);
-        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        // InCombat
+        m_InCombat = asset.FindActionMap("InCombat", throwIfNotFound: true);
+        m_InCombat_Move = m_InCombat.FindAction("Move", throwIfNotFound: true);
+        m_InCombat_MousePosition = m_InCombat.FindAction("MousePosition", throwIfNotFound: true);
+        m_InCombat_MainMouseButtons = m_InCombat.FindAction("MainMouseButtons", throwIfNotFound: true);
+        m_InCombat_Jump = m_InCombat.FindAction("Jump", throwIfNotFound: true);
+        // OutOfCombat
+        m_OutOfCombat = asset.FindActionMap("OutOfCombat", throwIfNotFound: true);
+        // InMenu
+        m_InMenu = asset.FindActionMap("InMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -269,44 +285,44 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
         asset.Disable();
     }
 
-    // Player
-    private readonly InputActionMap m_Player;
-    private IPlayerActions m_PlayerActionsCallbackInterface;
-    private readonly InputAction m_Player_Move;
-    private readonly InputAction m_Player_MousePosition;
-    private readonly InputAction m_Player_MainMouseButtons;
-    private readonly InputAction m_Player_Jump;
-    public struct PlayerActions
+    // InCombat
+    private readonly InputActionMap m_InCombat;
+    private IInCombatActions m_InCombatActionsCallbackInterface;
+    private readonly InputAction m_InCombat_Move;
+    private readonly InputAction m_InCombat_MousePosition;
+    private readonly InputAction m_InCombat_MainMouseButtons;
+    private readonly InputAction m_InCombat_Jump;
+    public struct InCombatActions
     {
         private @MultiplayerForReal m_Wrapper;
-        public PlayerActions(@MultiplayerForReal wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Move => m_Wrapper.m_Player_Move;
-        public InputAction @MousePosition => m_Wrapper.m_Player_MousePosition;
-        public InputAction @MainMouseButtons => m_Wrapper.m_Player_MainMouseButtons;
-        public InputAction @Jump => m_Wrapper.m_Player_Jump;
-        public InputActionMap Get() { return m_Wrapper.m_Player; }
+        public InCombatActions(@MultiplayerForReal wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_InCombat_Move;
+        public InputAction @MousePosition => m_Wrapper.m_InCombat_MousePosition;
+        public InputAction @MainMouseButtons => m_Wrapper.m_InCombat_MainMouseButtons;
+        public InputAction @Jump => m_Wrapper.m_InCombat_Jump;
+        public InputActionMap Get() { return m_Wrapper.m_InCombat; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
-        public void SetCallbacks(IPlayerActions instance)
+        public static implicit operator InputActionMap(InCombatActions set) { return set.Get(); }
+        public void SetCallbacks(IInCombatActions instance)
         {
-            if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
+            if (m_Wrapper.m_InCombatActionsCallbackInterface != null)
             {
-                @Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
-                @Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
-                @Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
-                @MousePosition.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
-                @MousePosition.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
-                @MousePosition.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
-                @MainMouseButtons.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMainMouseButtons;
-                @MainMouseButtons.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMainMouseButtons;
-                @MainMouseButtons.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMainMouseButtons;
-                @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Move.started -= m_Wrapper.m_InCombatActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_InCombatActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_InCombatActionsCallbackInterface.OnMove;
+                @MousePosition.started -= m_Wrapper.m_InCombatActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_InCombatActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_InCombatActionsCallbackInterface.OnMousePosition;
+                @MainMouseButtons.started -= m_Wrapper.m_InCombatActionsCallbackInterface.OnMainMouseButtons;
+                @MainMouseButtons.performed -= m_Wrapper.m_InCombatActionsCallbackInterface.OnMainMouseButtons;
+                @MainMouseButtons.canceled -= m_Wrapper.m_InCombatActionsCallbackInterface.OnMainMouseButtons;
+                @Jump.started -= m_Wrapper.m_InCombatActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_InCombatActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_InCombatActionsCallbackInterface.OnJump;
             }
-            m_Wrapper.m_PlayerActionsCallbackInterface = instance;
+            m_Wrapper.m_InCombatActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Move.started += instance.OnMove;
@@ -324,7 +340,57 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
             }
         }
     }
-    public PlayerActions @Player => new PlayerActions(this);
+    public InCombatActions @InCombat => new InCombatActions(this);
+
+    // OutOfCombat
+    private readonly InputActionMap m_OutOfCombat;
+    private IOutOfCombatActions m_OutOfCombatActionsCallbackInterface;
+    public struct OutOfCombatActions
+    {
+        private @MultiplayerForReal m_Wrapper;
+        public OutOfCombatActions(@MultiplayerForReal wrapper) { m_Wrapper = wrapper; }
+        public InputActionMap Get() { return m_Wrapper.m_OutOfCombat; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(OutOfCombatActions set) { return set.Get(); }
+        public void SetCallbacks(IOutOfCombatActions instance)
+        {
+            if (m_Wrapper.m_OutOfCombatActionsCallbackInterface != null)
+            {
+            }
+            m_Wrapper.m_OutOfCombatActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+            }
+        }
+    }
+    public OutOfCombatActions @OutOfCombat => new OutOfCombatActions(this);
+
+    // InMenu
+    private readonly InputActionMap m_InMenu;
+    private IInMenuActions m_InMenuActionsCallbackInterface;
+    public struct InMenuActions
+    {
+        private @MultiplayerForReal m_Wrapper;
+        public InMenuActions(@MultiplayerForReal wrapper) { m_Wrapper = wrapper; }
+        public InputActionMap Get() { return m_Wrapper.m_InMenu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(InMenuActions set) { return set.Get(); }
+        public void SetCallbacks(IInMenuActions instance)
+        {
+            if (m_Wrapper.m_InMenuActionsCallbackInterface != null)
+            {
+            }
+            m_Wrapper.m_InMenuActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+            }
+        }
+    }
+    public InMenuActions @InMenu => new InMenuActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -370,11 +436,17 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_XRSchemeIndex];
         }
     }
-    public interface IPlayerActions
+    public interface IInCombatActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
         void OnMainMouseButtons(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+    }
+    public interface IOutOfCombatActions
+    {
+    }
+    public interface IInMenuActions
+    {
     }
 }

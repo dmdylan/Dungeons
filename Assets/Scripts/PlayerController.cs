@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using StateStuff;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : PlayerStateMachine
 {
+    
+
     // Start is called before the first frame update
     void Start()
     {
