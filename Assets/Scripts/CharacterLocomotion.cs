@@ -39,6 +39,7 @@ public class CharacterLocomotion : NetworkBehaviour
         cameraT = Camera.main.transform;
     }
 
+    [ClientCallback]
     private void FixedUpdate()
     {
         if (!isLocalPlayer) return;
@@ -53,7 +54,8 @@ public class CharacterLocomotion : NetworkBehaviour
     //Might make it slower if they are moving backwards as opposed to forwards
     private void CombatMovement()
     {
-        if (!isLocalPlayer) return;
+        //Check not needed if done in fixedupdate
+        //if (!isLocalPlayer) return;
 
         //stop gravity pog
         if(characterController.isGrounded && velocityY < 0)

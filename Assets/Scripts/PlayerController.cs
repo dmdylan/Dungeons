@@ -40,9 +40,11 @@ public class PlayerController : PlayerStateMachine
             }
         }
 
+        //TODO: Does this need to be server side?
         SetState(new OutOfCombat(this));
     }
 
+    [ClientCallback]
     private void Update()
     {
         Debug.Log(state);

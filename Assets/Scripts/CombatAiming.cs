@@ -14,6 +14,7 @@ public class CombatAiming : NetworkBehaviour
         playerCamera = Camera.main;
     }
 
+    [ClientCallback]
     private void FixedUpdate()
     {
         if (!isLocalPlayer) return;
