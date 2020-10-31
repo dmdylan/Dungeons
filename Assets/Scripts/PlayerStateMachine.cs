@@ -8,6 +8,7 @@ namespace StateStuff
         
         public void SetState(State state)
         {
+            StartCoroutine(state.ExitState());
             this.state = state;
             StartCoroutine(this.state.Start());
         }

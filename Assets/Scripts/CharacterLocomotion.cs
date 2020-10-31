@@ -44,7 +44,7 @@ public class CharacterLocomotion : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
 
-        if (inCombat.Equals(true))
+        if (playerController.State is InCombat)
             CombatMovement();
         else
             OutOfCombatMove();
@@ -54,6 +54,7 @@ public class CharacterLocomotion : NetworkBehaviour
     //Might make it slower if they are moving backwards as opposed to forwards
     private void CombatMovement()
     {
+        Debug.Log("Combat movement");
         //Check not needed if done in fixedupdate
         //if (!isLocalPlayer) return;
 
@@ -84,6 +85,7 @@ public class CharacterLocomotion : NetworkBehaviour
 
     void OutOfCombatMove()//, bool running)
     {
+        Debug.Log("Out of combat movement");
         if (movement != Vector2.zero)
         {
             float targetRotation = Mathf.Atan2(movement.x, movement.y) * Mathf.Rad2Deg + cameraT.eulerAngles.y;

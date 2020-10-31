@@ -35,17 +35,25 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""MainMouseButtons"",
+                    ""name"": ""Jump"",
                     ""type"": ""Button"",
-                    ""id"": ""edc714a3-4dce-47d4-b2ec-3e5c9220ae17"",
+                    ""id"": ""f4f33678-4e5d-4c0d-8b53-2fe1dd18c3ea"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Jump"",
+                    ""name"": ""LeftMouseButton"",
                     ""type"": ""Button"",
-                    ""id"": ""f4f33678-4e5d-4c0d-8b53-2fe1dd18c3ea"",
+                    ""id"": ""d29c29a0-1839-45ef-9e11-c70b4b5113e1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""RightMouseButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""a670a208-84ff-473c-8600-86a93c4b2277"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -120,34 +128,34 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""dfd49a16-5850-40c4-8fcf-e7516ab6a5db"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MainMouseButtons"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c94365be-e556-4a40-a841-8ec132262bf7"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MainMouseButtons"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""76673cc6-c27c-4ca5-811f-b4555344ba49"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0241ae5-f3e4-442a-93ad-6534078d7f40"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftMouseButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fe1bb541-6cd1-4d2a-ad67-cf59c6d71c91"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightMouseButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -233,8 +241,9 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
         m_InCombat = asset.FindActionMap("InCombat", throwIfNotFound: true);
         m_InCombat_Move = m_InCombat.FindAction("Move", throwIfNotFound: true);
         m_InCombat_MousePosition = m_InCombat.FindAction("MousePosition", throwIfNotFound: true);
-        m_InCombat_MainMouseButtons = m_InCombat.FindAction("MainMouseButtons", throwIfNotFound: true);
         m_InCombat_Jump = m_InCombat.FindAction("Jump", throwIfNotFound: true);
+        m_InCombat_LeftMouseButton = m_InCombat.FindAction("LeftMouseButton", throwIfNotFound: true);
+        m_InCombat_RightMouseButton = m_InCombat.FindAction("RightMouseButton", throwIfNotFound: true);
         // OutOfCombat
         m_OutOfCombat = asset.FindActionMap("OutOfCombat", throwIfNotFound: true);
         // InMenu
@@ -290,16 +299,18 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
     private IInCombatActions m_InCombatActionsCallbackInterface;
     private readonly InputAction m_InCombat_Move;
     private readonly InputAction m_InCombat_MousePosition;
-    private readonly InputAction m_InCombat_MainMouseButtons;
     private readonly InputAction m_InCombat_Jump;
+    private readonly InputAction m_InCombat_LeftMouseButton;
+    private readonly InputAction m_InCombat_RightMouseButton;
     public struct InCombatActions
     {
         private @MultiplayerForReal m_Wrapper;
         public InCombatActions(@MultiplayerForReal wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_InCombat_Move;
         public InputAction @MousePosition => m_Wrapper.m_InCombat_MousePosition;
-        public InputAction @MainMouseButtons => m_Wrapper.m_InCombat_MainMouseButtons;
         public InputAction @Jump => m_Wrapper.m_InCombat_Jump;
+        public InputAction @LeftMouseButton => m_Wrapper.m_InCombat_LeftMouseButton;
+        public InputAction @RightMouseButton => m_Wrapper.m_InCombat_RightMouseButton;
         public InputActionMap Get() { return m_Wrapper.m_InCombat; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -315,12 +326,15 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
                 @MousePosition.started -= m_Wrapper.m_InCombatActionsCallbackInterface.OnMousePosition;
                 @MousePosition.performed -= m_Wrapper.m_InCombatActionsCallbackInterface.OnMousePosition;
                 @MousePosition.canceled -= m_Wrapper.m_InCombatActionsCallbackInterface.OnMousePosition;
-                @MainMouseButtons.started -= m_Wrapper.m_InCombatActionsCallbackInterface.OnMainMouseButtons;
-                @MainMouseButtons.performed -= m_Wrapper.m_InCombatActionsCallbackInterface.OnMainMouseButtons;
-                @MainMouseButtons.canceled -= m_Wrapper.m_InCombatActionsCallbackInterface.OnMainMouseButtons;
                 @Jump.started -= m_Wrapper.m_InCombatActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_InCombatActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_InCombatActionsCallbackInterface.OnJump;
+                @LeftMouseButton.started -= m_Wrapper.m_InCombatActionsCallbackInterface.OnLeftMouseButton;
+                @LeftMouseButton.performed -= m_Wrapper.m_InCombatActionsCallbackInterface.OnLeftMouseButton;
+                @LeftMouseButton.canceled -= m_Wrapper.m_InCombatActionsCallbackInterface.OnLeftMouseButton;
+                @RightMouseButton.started -= m_Wrapper.m_InCombatActionsCallbackInterface.OnRightMouseButton;
+                @RightMouseButton.performed -= m_Wrapper.m_InCombatActionsCallbackInterface.OnRightMouseButton;
+                @RightMouseButton.canceled -= m_Wrapper.m_InCombatActionsCallbackInterface.OnRightMouseButton;
             }
             m_Wrapper.m_InCombatActionsCallbackInterface = instance;
             if (instance != null)
@@ -331,12 +345,15 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
                 @MousePosition.started += instance.OnMousePosition;
                 @MousePosition.performed += instance.OnMousePosition;
                 @MousePosition.canceled += instance.OnMousePosition;
-                @MainMouseButtons.started += instance.OnMainMouseButtons;
-                @MainMouseButtons.performed += instance.OnMainMouseButtons;
-                @MainMouseButtons.canceled += instance.OnMainMouseButtons;
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @LeftMouseButton.started += instance.OnLeftMouseButton;
+                @LeftMouseButton.performed += instance.OnLeftMouseButton;
+                @LeftMouseButton.canceled += instance.OnLeftMouseButton;
+                @RightMouseButton.started += instance.OnRightMouseButton;
+                @RightMouseButton.performed += instance.OnRightMouseButton;
+                @RightMouseButton.canceled += instance.OnRightMouseButton;
             }
         }
     }
@@ -440,8 +457,9 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
-        void OnMainMouseButtons(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnLeftMouseButton(InputAction.CallbackContext context);
+        void OnRightMouseButton(InputAction.CallbackContext context);
     }
     public interface IOutOfCombatActions
     {

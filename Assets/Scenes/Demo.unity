@@ -131,9 +131,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 57430648}
+  - component: {fileID: 57430649}
   - component: {fileID: 57430647}
   - component: {fileID: 57430646}
-  - component: {fileID: 57430649}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -142,6 +142,21 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!114 &57430646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57430645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showGUI: 1
+  offsetX: 0
+  offsetY: 0
+--- !u!114 &57430647
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,36 +198,6 @@ MonoBehaviour:
   serverMaxReceivesPerTick: 10000
   clientMaxMessageSize: 16384
   clientMaxReceivesPerTick: 1000
---- !u!114 &57430647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 57430645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aab4c8111b7c411b9b92cf3dbc5bd4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 1
-  runInBackground: 1
-  autoStartServerBuild: 1
-  showDebugMessages: 0
-  serverTickRate: 30
-  offlineScene: 
-  onlineScene: 
-  transport: {fileID: 57430646}
-  networkAddress: localhost
-  maxConnections: 4
-  disconnectInactiveConnections: 0
-  disconnectInactiveTimeout: 60
-  authenticator: {fileID: 0}
-  playerPrefab: {fileID: 4655902160955762586, guid: 8754febc0ae958043b90411f42b43721,
-    type: 3}
-  autoCreatePlayer: 1
-  playerSpawnMethod: 0
-  spawnPrefabs: []
 --- !u!4 &57430648
 Transform:
   m_ObjectHideFlags: 0
@@ -236,12 +221,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 57430645}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
+  m_Script: {fileID: 11500000, guid: ba541543b2759e748a2517fc8b671640, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showGUI: 1
-  offsetX: 0
-  offsetY: 0
+  dontDestroyOnLoad: 1
+  runInBackground: 1
+  autoStartServerBuild: 1
+  showDebugMessages: 0
+  serverTickRate: 30
+  offlineScene: 
+  onlineScene: 
+  transport: {fileID: 57430647}
+  networkAddress: localhost
+  maxConnections: 4
+  disconnectInactiveConnections: 0
+  disconnectInactiveTimeout: 60
+  authenticator: {fileID: 0}
+  playerPrefab: {fileID: 4655902160955762586, guid: 8754febc0ae958043b90411f42b43721,
+    type: 3}
+  autoCreatePlayer: 1
+  playerSpawnMethod: 0
+  spawnPrefabs: []
 --- !u!1 &140512012
 GameObject:
   m_ObjectHideFlags: 0

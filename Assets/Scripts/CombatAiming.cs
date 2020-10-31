@@ -5,7 +5,6 @@ using Mirror;
 public class CombatAiming : NetworkBehaviour
 {
     [SerializeField] private float turnSpeed = 15f;
-    [SerializeField] private bool isInCombat = true;
     Camera playerCamera;
 
     public override void OnStartLocalPlayer()
@@ -19,10 +18,7 @@ public class CombatAiming : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
 
-        if (isInCombat.Equals(true))
-        {
-            float yawCamera = playerCamera.transform.rotation.eulerAngles.y;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, yawCamera, 0), turnSpeed * Time.fixedDeltaTime);
-        }
+        float yawCamera = playerCamera.transform.rotation.eulerAngles.y;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, yawCamera, 0), turnSpeed * Time.fixedDeltaTime);
     }
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerController : PlayerStateMachine
 {
@@ -12,12 +13,12 @@ public class PlayerController : PlayerStateMachine
     [SerializeField] private Transform playerFollow = null;
     [SerializeField] private Transform playerLookAt = null;
 
+    public CombatAiming CombatAiming { get; private set; } = null;
     public CharacterController PlayerCharacterController { get; private set; } = null;
     public Camera PlayerCamera { get; private set; } = null;
     public GameObject[] PlayerCinemachineCameraObjects => playerCinemachineCameraObjects;
     public PlayerInput PlayerInput { get; private set; } = null;
-
-    public event Action OnEnterCombat;
+    public State State => state;
 
     public override void OnStartLocalPlayer()
     {
@@ -28,6 +29,7 @@ public class PlayerController : PlayerStateMachine
         PlayerCharacterController = GetComponent<CharacterController>();
         PlayerCamera = Camera.main;
         PlayerInput = GetComponent<PlayerInput>();
+        CombatAiming = GetComponent<CombatAiming>();
 
         //TODO: Assigns the targets to disabled gameobjects. Need to enable the gameobjects otherwise
         //unity/cinemachine decides to swap camera to other play when someone connects.
@@ -50,10 +52,17 @@ public class PlayerController : PlayerStateMachine
         Debug.Log(state);
     }
 
-    private void OnMainMouseButtons()
+    private void OnLeftMouseButton()
     {
         if(!isLocalPlayer) return;
 
         SetState(new InCombat(this));
+    }
+
+    private void OnRightMouseButton()
+    {
+        if (!isLocalPlayer) return;
+
+        SetState(new OutOfCombat(this));
     }
 }
