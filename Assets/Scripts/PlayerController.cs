@@ -9,14 +9,14 @@ using UnityEngine.UI;
 
 public class PlayerController : PlayerStateMachine
 {
-    [SerializeField] private GameObject[] playerCinemachineCameraObjects = null;
+    [SerializeField] private CinemachineFreeLook[] playerCinemachineCameras = null;
     [SerializeField] private Transform playerFollow = null;
     [SerializeField] private Transform playerLookAt = null;
 
-    public CombatAiming CombatAiming { get; private set; } = null;
+    //public CombatAiming CombatAiming { get; private set; } = null;
     public CharacterController PlayerCharacterController { get; private set; } = null;
     public Camera PlayerCamera { get; private set; } = null;
-    public GameObject[] PlayerCinemachineCameraObjects => playerCinemachineCameraObjects;
+    public CinemachineFreeLook[] PlayerCinemachineCameras => playerCinemachineCameras;
     public PlayerInput PlayerInput { get; private set; } = null;
     public State State => state;
 
@@ -29,17 +29,14 @@ public class PlayerController : PlayerStateMachine
         PlayerCharacterController = GetComponent<CharacterController>();
         PlayerCamera = Camera.main;
         PlayerInput = GetComponent<PlayerInput>();
-        CombatAiming = GetComponent<CombatAiming>();
+        //CombatAiming = GetComponent<CombatAiming>();
 
         //TODO: Assigns the targets to disabled gameobjects. Need to enable the gameobjects otherwise
         //unity/cinemachine decides to swap camera to other play when someone connects.
-        foreach (GameObject playerCameraObject in playerCinemachineCameraObjects)
+        foreach (CinemachineFreeLook playerCameraObject in playerCinemachineCameras)
         {
-            if (playerCameraObject.TryGetComponent(out CinemachineFreeLook cinemachineFreeLook))
-            {
-                cinemachineFreeLook.m_Follow = playerFollow;
-                cinemachineFreeLook.m_LookAt = playerLookAt;
-            }
+            playerCameraObject.m_Follow = playerFollow;
+            playerCameraObject.m_LookAt = playerLookAt;     
         }
 
         //TODO: Does this need to be server side?
@@ -56,6 +53,8 @@ public class PlayerController : PlayerStateMachine
     {
         if(!isLocalPlayer) return;
 
+        if (state is InCombat) return;
+
         SetState(new InCombat(this));
     }
 
@@ -63,6 +62,14 @@ public class PlayerController : PlayerStateMachine
     {
         if (!isLocalPlayer) return;
 
+        if (state is OutOfCombat) return;
+
         SetState(new OutOfCombat(this));
+    }
+
+    [Command]
+    private void CmdSetState()
+    {
+
     }
 }

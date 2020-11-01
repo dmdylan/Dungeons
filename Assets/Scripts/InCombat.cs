@@ -15,8 +15,8 @@ namespace StateStuff
         {
             //Not properly enabling/disabling gameobjects and components in any state. 
             OnEnterCombat?.Invoke();
-            playerController.PlayerCinemachineCameraObjects[0].SetActive(true);
-            playerController.CombatAiming.enabled.Equals(true);
+            playerController.PlayerCinemachineCameras[0].enabled = true;
+            //playerController.CombatAiming.enabled = true;
             return base.Start();
         }
 
@@ -27,8 +27,8 @@ namespace StateStuff
 
         public override IEnumerator ExitState()
         {
-            playerController.PlayerCinemachineCameraObjects[0].SetActive(false);
-            playerController.CombatAiming.enabled.Equals(false);
+            playerController.PlayerCinemachineCameras[0].enabled = false;
+            //playerController.CombatAiming.enabled = false;
             return base.ExitState();
         }
     }

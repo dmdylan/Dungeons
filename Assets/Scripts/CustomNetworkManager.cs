@@ -9,6 +9,8 @@ public class CustomNetworkManager : NetworkManager
     {
         base.OnClientConnect(conn);
 
-        conn.identity.gameObject.name = $"Player {conn.connectionId}";
+
+        //TODO: Throws null reference error for client that isn't server
+        //conn.identity.gameObject.name = $"Player {conn.connectionId}";
     }
 }

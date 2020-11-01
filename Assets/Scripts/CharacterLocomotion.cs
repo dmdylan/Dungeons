@@ -27,6 +27,7 @@ public class CharacterLocomotion : NetworkBehaviour
 
     [Range(0, 1)]
     [SerializeField] private float airControlPercent = 0f;
+    [SerializeField] private float combatTurnSpeed = 15f;
 
     public override void OnStartLocalPlayer()
     {
@@ -79,7 +80,9 @@ public class CharacterLocomotion : NetworkBehaviour
         //TODO: Take animation out of movement script
         animator.SetFloat("InputX", Mathf.Round(movement.x));
         animator.SetFloat("InputY", Mathf.Round(movement.y));
-        
+
+        float yawCamera = cameraT.transform.rotation.eulerAngles.y;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, yawCamera, 0), combatTurnSpeed * Time.fixedDeltaTime);
         characterController.Move(movementDirection);
     }
 
@@ -125,6 +128,7 @@ public class CharacterLocomotion : NetworkBehaviour
         return smoothTime / airControlPercent;
     }
 
+    //TODO: Check/authenticate commands server side
     #region InputCommands
     private void OnMove(InputValue value)
     {
