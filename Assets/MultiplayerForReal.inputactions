@@ -30,7 +30,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "LeftMouseButton",
+                    "name": "BaseAttackOne",
                     "type": "Button",
                     "id": "d29c29a0-1839-45ef-9e11-c70b4b5113e1",
                     "expectedControlType": "Button",
@@ -38,9 +38,17 @@
                     "interactions": ""
                 },
                 {
-                    "name": "RightMouseButton",
+                    "name": "BaseAttackTwo",
                     "type": "Button",
                     "id": "a670a208-84ff-473c-8600-86a93c4b2277",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Dodge",
+                    "type": "Button",
+                    "id": "098193af-c277-4b49-9876-23d78b18dfa5",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -131,7 +139,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "LeftMouseButton",
+                    "action": "BaseAttackOne",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -142,7 +150,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RightMouseButton",
+                    "action": "BaseAttackTwo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "12986bf5-2eea-4cf6-8c11-1a5caf0c74f2",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dodge",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

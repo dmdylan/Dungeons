@@ -17,7 +17,6 @@ public class CharacterLocomotion : NetworkBehaviour
     private float speedSmoothVelocity;
     Transform cameraT;
 
-    [SerializeField] private bool inCombat = false;
     [SerializeField] private float moveSpeed = 0f;
     [SerializeField] private float jumpHeight = 1f;
     [SerializeField] private float gravity = -12f;
@@ -55,7 +54,6 @@ public class CharacterLocomotion : NetworkBehaviour
     //Might make it slower if they are moving backwards as opposed to forwards
     private void CombatMovement()
     {
-        Debug.Log("Combat movement");
         //Check not needed if done in fixedupdate
         //if (!isLocalPlayer) return;
 
@@ -88,7 +86,6 @@ public class CharacterLocomotion : NetworkBehaviour
 
     void OutOfCombatMove()//, bool running)
     {
-        Debug.Log("Out of combat movement");
         if (movement != Vector2.zero)
         {
             float targetRotation = Mathf.Atan2(movement.x, movement.y) * Mathf.Rad2Deg + cameraT.eulerAngles.y;

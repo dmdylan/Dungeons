@@ -20,6 +20,8 @@ public class PlayerController : PlayerStateMachine
     public PlayerInput PlayerInput { get; private set; } = null;
     public State State => state;
 
+    #region Client Side
+
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
@@ -29,10 +31,7 @@ public class PlayerController : PlayerStateMachine
         PlayerCharacterController = GetComponent<CharacterController>();
         PlayerCamera = Camera.main;
         PlayerInput = GetComponent<PlayerInput>();
-        //CombatAiming = GetComponent<CombatAiming>();
 
-        //TODO: Assigns the targets to disabled gameobjects. Need to enable the gameobjects otherwise
-        //unity/cinemachine decides to swap camera to other play when someone connects.
         foreach (CinemachineFreeLook playerCameraObject in playerCinemachineCameras)
         {
             playerCameraObject.m_Follow = playerFollow;
@@ -51,11 +50,11 @@ public class PlayerController : PlayerStateMachine
 
     private void OnLeftMouseButton()
     {
-        if(!isLocalPlayer) return;
+        if (!isLocalPlayer) return;
 
         if (state is InCombat) return;
 
-        SetState(new InCombat(this));
+        CmdSetInCombatState();
     }
 
     private void OnRightMouseButton()
@@ -64,12 +63,34 @@ public class PlayerController : PlayerStateMachine
 
         if (state is OutOfCombat) return;
 
-        SetState(new OutOfCombat(this));
+        CmdSetOutOfCombatState();
+    }
+
+    #endregion
+
+    #region Server Side
+
+
+    //TODO: Cannot set states from server because the state class cannot be saved and sent across the network
+    //Either need to make own type that can be, figure something else out, or just keep it client side.
+    [Command]
+    private void CmdSetInCombatState()
+    {
+        SetState(new InCombat(this));
+        //TargetSetPlayerState(new InCombat(this));
     }
 
     [Command]
-    private void CmdSetState()
+    private void CmdSetOutOfCombatState()
     {
-
+        SetState(new OutOfCombat(this));
     }
+
+    //[TargetRpc]
+    //private void TargetSetPlayerState(State state)
+    //{
+    //    SetState(state);
+    //}
+
+    #endregion
 }

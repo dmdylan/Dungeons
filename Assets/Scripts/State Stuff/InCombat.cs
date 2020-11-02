@@ -9,14 +9,9 @@ namespace StateStuff
         {
         }
 
-        public event Action OnEnterCombat;
-
         public override IEnumerator Start()
         {
-            //Not properly enabling/disabling gameobjects and components in any state. 
-            OnEnterCombat?.Invoke();
             playerController.PlayerCinemachineCameras[0].enabled = true;
-            //playerController.CombatAiming.enabled = true;
             return base.Start();
         }
 
@@ -28,7 +23,6 @@ namespace StateStuff
         public override IEnumerator ExitState()
         {
             playerController.PlayerCinemachineCameras[0].enabled = false;
-            //playerController.CombatAiming.enabled = false;
             return base.ExitState();
         }
     }

@@ -43,7 +43,7 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""LeftMouseButton"",
+                    ""name"": ""BaseAttackOne"",
                     ""type"": ""Button"",
                     ""id"": ""d29c29a0-1839-45ef-9e11-c70b4b5113e1"",
                     ""expectedControlType"": ""Button"",
@@ -51,9 +51,17 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""RightMouseButton"",
+                    ""name"": ""BaseAttackTwo"",
                     ""type"": ""Button"",
                     ""id"": ""a670a208-84ff-473c-8600-86a93c4b2277"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Dodge"",
+                    ""type"": ""Button"",
+                    ""id"": ""098193af-c277-4b49-9876-23d78b18dfa5"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -144,7 +152,7 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""LeftMouseButton"",
+                    ""action"": ""BaseAttackOne"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -155,7 +163,18 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""RightMouseButton"",
+                    ""action"": ""BaseAttackTwo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""12986bf5-2eea-4cf6-8c11-1a5caf0c74f2"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dodge"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -242,8 +261,9 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
         m_InCombat_Move = m_InCombat.FindAction("Move", throwIfNotFound: true);
         m_InCombat_MousePosition = m_InCombat.FindAction("MousePosition", throwIfNotFound: true);
         m_InCombat_Jump = m_InCombat.FindAction("Jump", throwIfNotFound: true);
-        m_InCombat_LeftMouseButton = m_InCombat.FindAction("LeftMouseButton", throwIfNotFound: true);
-        m_InCombat_RightMouseButton = m_InCombat.FindAction("RightMouseButton", throwIfNotFound: true);
+        m_InCombat_BaseAttackOne = m_InCombat.FindAction("BaseAttackOne", throwIfNotFound: true);
+        m_InCombat_BaseAttackTwo = m_InCombat.FindAction("BaseAttackTwo", throwIfNotFound: true);
+        m_InCombat_Dodge = m_InCombat.FindAction("Dodge", throwIfNotFound: true);
         // OutOfCombat
         m_OutOfCombat = asset.FindActionMap("OutOfCombat", throwIfNotFound: true);
         // InMenu
@@ -300,8 +320,9 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
     private readonly InputAction m_InCombat_Move;
     private readonly InputAction m_InCombat_MousePosition;
     private readonly InputAction m_InCombat_Jump;
-    private readonly InputAction m_InCombat_LeftMouseButton;
-    private readonly InputAction m_InCombat_RightMouseButton;
+    private readonly InputAction m_InCombat_BaseAttackOne;
+    private readonly InputAction m_InCombat_BaseAttackTwo;
+    private readonly InputAction m_InCombat_Dodge;
     public struct InCombatActions
     {
         private @MultiplayerForReal m_Wrapper;
@@ -309,8 +330,9 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_InCombat_Move;
         public InputAction @MousePosition => m_Wrapper.m_InCombat_MousePosition;
         public InputAction @Jump => m_Wrapper.m_InCombat_Jump;
-        public InputAction @LeftMouseButton => m_Wrapper.m_InCombat_LeftMouseButton;
-        public InputAction @RightMouseButton => m_Wrapper.m_InCombat_RightMouseButton;
+        public InputAction @BaseAttackOne => m_Wrapper.m_InCombat_BaseAttackOne;
+        public InputAction @BaseAttackTwo => m_Wrapper.m_InCombat_BaseAttackTwo;
+        public InputAction @Dodge => m_Wrapper.m_InCombat_Dodge;
         public InputActionMap Get() { return m_Wrapper.m_InCombat; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -329,12 +351,15 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_InCombatActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_InCombatActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_InCombatActionsCallbackInterface.OnJump;
-                @LeftMouseButton.started -= m_Wrapper.m_InCombatActionsCallbackInterface.OnLeftMouseButton;
-                @LeftMouseButton.performed -= m_Wrapper.m_InCombatActionsCallbackInterface.OnLeftMouseButton;
-                @LeftMouseButton.canceled -= m_Wrapper.m_InCombatActionsCallbackInterface.OnLeftMouseButton;
-                @RightMouseButton.started -= m_Wrapper.m_InCombatActionsCallbackInterface.OnRightMouseButton;
-                @RightMouseButton.performed -= m_Wrapper.m_InCombatActionsCallbackInterface.OnRightMouseButton;
-                @RightMouseButton.canceled -= m_Wrapper.m_InCombatActionsCallbackInterface.OnRightMouseButton;
+                @BaseAttackOne.started -= m_Wrapper.m_InCombatActionsCallbackInterface.OnBaseAttackOne;
+                @BaseAttackOne.performed -= m_Wrapper.m_InCombatActionsCallbackInterface.OnBaseAttackOne;
+                @BaseAttackOne.canceled -= m_Wrapper.m_InCombatActionsCallbackInterface.OnBaseAttackOne;
+                @BaseAttackTwo.started -= m_Wrapper.m_InCombatActionsCallbackInterface.OnBaseAttackTwo;
+                @BaseAttackTwo.performed -= m_Wrapper.m_InCombatActionsCallbackInterface.OnBaseAttackTwo;
+                @BaseAttackTwo.canceled -= m_Wrapper.m_InCombatActionsCallbackInterface.OnBaseAttackTwo;
+                @Dodge.started -= m_Wrapper.m_InCombatActionsCallbackInterface.OnDodge;
+                @Dodge.performed -= m_Wrapper.m_InCombatActionsCallbackInterface.OnDodge;
+                @Dodge.canceled -= m_Wrapper.m_InCombatActionsCallbackInterface.OnDodge;
             }
             m_Wrapper.m_InCombatActionsCallbackInterface = instance;
             if (instance != null)
@@ -348,12 +373,15 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
-                @LeftMouseButton.started += instance.OnLeftMouseButton;
-                @LeftMouseButton.performed += instance.OnLeftMouseButton;
-                @LeftMouseButton.canceled += instance.OnLeftMouseButton;
-                @RightMouseButton.started += instance.OnRightMouseButton;
-                @RightMouseButton.performed += instance.OnRightMouseButton;
-                @RightMouseButton.canceled += instance.OnRightMouseButton;
+                @BaseAttackOne.started += instance.OnBaseAttackOne;
+                @BaseAttackOne.performed += instance.OnBaseAttackOne;
+                @BaseAttackOne.canceled += instance.OnBaseAttackOne;
+                @BaseAttackTwo.started += instance.OnBaseAttackTwo;
+                @BaseAttackTwo.performed += instance.OnBaseAttackTwo;
+                @BaseAttackTwo.canceled += instance.OnBaseAttackTwo;
+                @Dodge.started += instance.OnDodge;
+                @Dodge.performed += instance.OnDodge;
+                @Dodge.canceled += instance.OnDodge;
             }
         }
     }
@@ -458,8 +486,9 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnLeftMouseButton(InputAction.CallbackContext context);
-        void OnRightMouseButton(InputAction.CallbackContext context);
+        void OnBaseAttackOne(InputAction.CallbackContext context);
+        void OnBaseAttackTwo(InputAction.CallbackContext context);
+        void OnDodge(InputAction.CallbackContext context);
     }
     public interface IOutOfCombatActions
     {

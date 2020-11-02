@@ -11,7 +11,6 @@ namespace StateStuff
 
         public override IEnumerator Start()
         {
-            //TODO: Not properly enabling and disabling game objects in either state
             playerController.PlayerCinemachineCameras[1].enabled = true;
             //TODO: Does out of combat really need a different input action map? What actions would be restricted?
             //playerController.PlayerInput.SwitchCurrentActionMap("OutOfCombat");
