@@ -845,7 +845,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  inCombat: 0
   moveSpeed: 5
   jumpHeight: 1
   gravity: -12

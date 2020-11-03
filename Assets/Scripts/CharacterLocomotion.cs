@@ -28,6 +28,8 @@ public class CharacterLocomotion : NetworkBehaviour
     [SerializeField] private float airControlPercent = 0f;
     [SerializeField] private float combatTurnSpeed = 15f;
 
+    #region Client Side
+
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
@@ -58,7 +60,7 @@ public class CharacterLocomotion : NetworkBehaviour
         //if (!isLocalPlayer) return;
 
         //stop gravity pog
-        if(characterController.isGrounded && velocityY < 0)
+        if (characterController.isGrounded && velocityY < 0)
         {
             velocityY = 0;
         }
@@ -101,7 +103,8 @@ public class CharacterLocomotion : NetworkBehaviour
         animator.SetFloat("InputX", Mathf.Round(movement.x));
         animator.SetFloat("InputY", Mathf.Round(movement.y));
 
-        characterController.Move(velocity * Time.fixedDeltaTime);
+        velocity *= Time.fixedDeltaTime;
+        characterController.Move(velocity);
         currentSpeed = new Vector2(characterController.velocity.x, characterController.velocity.z).magnitude;
 
         if (characterController.isGrounded)
@@ -124,6 +127,18 @@ public class CharacterLocomotion : NetworkBehaviour
 
         return smoothTime / airControlPercent;
     }
+
+    #endregion
+
+    #region Server Side
+
+    [Command]
+    private void CmdMove(Vector3 movement)
+    {
+        characterController.Move(movement);
+    }
+
+    #endregion
 
     //TODO: Check/authenticate commands server side
     #region InputCommands

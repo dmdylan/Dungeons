@@ -67,9 +67,10 @@ public class PlayerController : PlayerStateMachine
     }
 
     #endregion
-
+    //TODO: Set up syncvar corresponding to different player states. Can be called on server as command,
+    //then targetrpc to other right player. Use the hook to then call a method to change the state of the player
+   
     #region Server Side
-
 
     //TODO: Cannot set states from server because the state class cannot be saved and sent across the network
     //Either need to make own type that can be, figure something else out, or just keep it client side.
