@@ -5,13 +5,16 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
+enum PlayerState { OutOfCombat = 0, InCombat = 1 }
 public class PlayerController : PlayerStateMachine
 {
     [SerializeField] private CinemachineFreeLook[] playerCinemachineCameras = null;
     [SerializeField] private Transform playerFollow = null;
     [SerializeField] private Transform playerLookAt = null;
+
+    [SyncVar (hook = nameof(SetPlayerState))]
+    private PlayerState playerState = PlayerState.OutOfCombat;
 
     //public CombatAiming CombatAiming { get; private set; } = null;
     public CharacterController PlayerCharacterController { get; private set; } = null;
@@ -45,53 +48,54 @@ public class PlayerController : PlayerStateMachine
     [ClientCallback]
     private void Update()
     {
-        Debug.Log(state);
+        //TODO: Throws null state in debug after client joins
+        Debug.Log(State);
     }
 
-    private void OnLeftMouseButton()
+    private void SetPlayerState(PlayerState oldState, PlayerState newState)
+    {
+        if (!isLocalPlayer) return;
+
+        switch (newState)
+        {
+            case PlayerState.OutOfCombat:
+                SetState(new OutOfCombat(this));
+                break;
+            case PlayerState.InCombat:
+                SetState(new InCombat(this));
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void OnBaseAttackOne()
     {
         if (!isLocalPlayer) return;
 
         if (state is InCombat) return;
 
-        CmdSetInCombatState();
+        CmdSetState(PlayerState.InCombat);
     }
 
-    private void OnRightMouseButton()
+    private void OnBaseAttackTwo()
     {
         if (!isLocalPlayer) return;
 
         if (state is OutOfCombat) return;
 
-        CmdSetOutOfCombatState();
+        CmdSetState(PlayerState.OutOfCombat);
     }
 
     #endregion
-    //TODO: Set up syncvar corresponding to different player states. Can be called on server as command,
-    //then targetrpc to other right player. Use the hook to then call a method to change the state of the player
    
     #region Server Side
 
-    //TODO: Cannot set states from server because the state class cannot be saved and sent across the network
-    //Either need to make own type that can be, figure something else out, or just keep it client side.
     [Command]
-    private void CmdSetInCombatState()
+    private void CmdSetState(PlayerState playerState)
     {
-        SetState(new InCombat(this));
-        //TargetSetPlayerState(new InCombat(this));
+        this.playerState = playerState;
     }
-
-    [Command]
-    private void CmdSetOutOfCombatState()
-    {
-        SetState(new OutOfCombat(this));
-    }
-
-    //[TargetRpc]
-    //private void TargetSetPlayerState(State state)
-    //{
-    //    SetState(state);
-    //}
 
     #endregion
 }
