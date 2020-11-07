@@ -9,19 +9,27 @@ using UnityEngine.InputSystem;
 enum PlayerState { OutOfCombat = 0, InCombat = 1 }
 public class PlayerController : PlayerStateMachine
 {
+    #region Variables
+
     [SerializeField] private CinemachineFreeLook[] playerCinemachineCameras = null;
     [SerializeField] private Transform playerFollow = null;
     [SerializeField] private Transform playerLookAt = null;
 
+    #endregion
+
+    #region Properties
+
+    //Player state class cannot be sent over the network. Enum to change and track player state on sever
+    //is sent to client to change internal state
     [SyncVar (hook = nameof(SetPlayerState))]
     private PlayerState playerState = PlayerState.OutOfCombat;
-
-    //public CombatAiming CombatAiming { get; private set; } = null;
     public CharacterController PlayerCharacterController { get; private set; } = null;
     public Camera PlayerCamera { get; private set; } = null;
     public CinemachineFreeLook[] PlayerCinemachineCameras => playerCinemachineCameras;
     public PlayerInput PlayerInput { get; private set; } = null;
     public State State => state;
+
+    #endregion
 
     #region Client Side
 
@@ -29,7 +37,7 @@ public class PlayerController : PlayerStateMachine
     {
         base.OnStartLocalPlayer();
 
-        gameObject.name = "Player " + netId.ToString();
+        //gameObject.name = "Player " + netId.ToString();
 
         PlayerCharacterController = GetComponent<CharacterController>();
         PlayerCamera = Camera.main;
@@ -41,15 +49,13 @@ public class PlayerController : PlayerStateMachine
             playerCameraObject.m_LookAt = playerLookAt;     
         }
 
-        //TODO: Does this need to be server side?
         SetState(new OutOfCombat(this));
     }
 
     [ClientCallback]
     private void Update()
     {
-        //TODO: Throws null state in debug after client joins
-        Debug.Log(State);
+        Debug.Log($"{netIdentity} variable state: {playerState}");
     }
 
     private void SetPlayerState(PlayerState oldState, PlayerState newState)

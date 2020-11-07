@@ -86,6 +86,7 @@ public class CharacterLocomotion : NetworkBehaviour
         characterController.Move(movementDirection);
     }
 
+    //TODO: Wiggling back and forth (A/D spam) moves the character forward instead of moving in place
     void OutOfCombatMove()//, bool running)
     {
         if (movement != Vector2.zero)
@@ -131,16 +132,29 @@ public class CharacterLocomotion : NetworkBehaviour
     #endregion
 
     #region Server Side
-
+    //TODO: Make movement serverside
     [Command]
     private void CmdMove(Vector3 movement)
     {
         characterController.Move(movement);
     }
 
+    //TODO: Check/authenticate commands server side
+    [Command]
+    private void CmdJump()
+    {
+        TargetJump();
+    }
+
+    [TargetRpc]
+    private void TargetJump()//)float jumpVelocity)
+    {
+        float jumpVelocity = Mathf.Sqrt(Physics.gravity.y * jumpHeight * gravityMultiplier);
+        velocityY = jumpVelocity;
+    }
+
     #endregion
 
-    //TODO: Check/authenticate commands server side
     #region InputCommands
     private void OnMove(InputValue value)
     {
@@ -155,8 +169,7 @@ public class CharacterLocomotion : NetworkBehaviour
 
         if (characterController.isGrounded)
         {
-            float jumpVelocity = Mathf.Sqrt(Physics.gravity.y * jumpHeight * gravityMultiplier);
-            velocityY = jumpVelocity;
+            CmdJump();
         }
     }
     #endregion
