@@ -38,7 +38,6 @@ public class PlayerController : PlayerStateMachine
         base.OnStartLocalPlayer();
 
         //gameObject.name = "Player " + netId.ToString();
-
         PlayerCharacterController = GetComponent<CharacterController>();
         PlayerCamera = Camera.main;
         PlayerInput = GetComponent<PlayerInput>();
@@ -75,11 +74,11 @@ public class PlayerController : PlayerStateMachine
         }
     }
 
-    private void OnBaseAttackOne()
+    private void OnBaseAttackOne(InputValue value)
     {
         if (!isLocalPlayer) return;
 
-        if (state is InCombat) return;
+        if (state is InCombat) return;        
 
         CmdSetState(PlayerState.InCombat);
     }

@@ -48,7 +48,7 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
                     ""id"": ""d29c29a0-1839-45ef-9e11-c70b4b5113e1"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(behavior=2)""
                 },
                 {
                     ""name"": ""BaseAttackTwo"",
@@ -56,7 +56,7 @@ public class @MultiplayerForReal : IInputActionCollection, IDisposable
                     ""id"": ""a670a208-84ff-473c-8600-86a93c4b2277"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(behavior=2)""
                 },
                 {
                     ""name"": ""Dodge"",

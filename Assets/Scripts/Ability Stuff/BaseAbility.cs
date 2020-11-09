@@ -2,17 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseAbility : MonoBehaviour
+[CreateAssetMenu(menuName = "New Ability")]
+public class BaseAbility : AbilityInfoSO
 {
-    // Start is called before the first frame update
-    void Start()
+    public override IEnumerator Use()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        throw new System.NotImplementedException();
     }
 }
