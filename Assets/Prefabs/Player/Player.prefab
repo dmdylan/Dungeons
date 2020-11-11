@@ -669,6 +669,7 @@ GameObject:
   - component: {fileID: 5122505782630660512}
   - component: {fileID: 8260495601398436540}
   - component: {fileID: 1990984638512060}
+  - component: {fileID: 572733800191115326}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -853,6 +854,21 @@ MonoBehaviour:
   turnSmoothTime: 0.1
   airControlPercent: 0
   combatTurnSpeed: 15
+--- !u!114 &572733800191115326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4655902160955762586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1867b2b20522bc74d80eafe3c13e994e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  MageAbilities: {fileID: 11400000, guid: 6a012c72401499c41a837af957616d7f, type: 2}
 --- !u!1 &4655911336042857522
 GameObject:
   m_ObjectHideFlags: 0
