@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c24db57cbcb0fe34e88609f3eac401fe, type: 3}
   m_Name: TestAbility
   m_EditorClassIdentifier: 
-  abilityName: 
-  abilityDamage: 0
+  abilityName: Ice Lance
+  abilityDamage: 5
   abilityID: 0
-  toolTip: 
+  toolTip: Shoots an ice lance from your hands
   damageStatMultiplier: 0
   abilityIcon: {fileID: 0}
-  abilityCooldown: 0
-  abilityGameObject: {fileID: 0}
+  abilityCooldown: 0.5
+  abilityGameObject: {fileID: 1152600337015092552, guid: 60c1a940dc998bf42812bd6b9d5add4d,
+    type: 3}
   abilityParticles: {fileID: 0}
-  abilityRange: 0
+  abilityRange: 25
   abilityCastTime: 0
   isChargeAbility: 0
   abilityUseType: 0
